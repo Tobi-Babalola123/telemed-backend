@@ -1,0 +1,62 @@
+<form id="appointmentForm" action="#">
+  <input
+    type="text"
+    id="patient_id"
+    name="patient_id"
+    placeholder="Patient ID"
+    required
+  />
+  <input
+    type="text"
+    id="doctor_id"
+    name="doctor_id"
+    placeholder="Doctor ID"
+    required
+  />
+  <input type="date" id="date" name="date" required />
+  <input type="time" id="time" name="time" required />
+  <button type="submit">Submit</button>
+  <p id="feedback"></p>
+</form>
+
+<script>
+  document.getElementById("appointmentForm").onsubmit = async function (event) {
+    event.preventDefault();
+
+    const patient_id = document.getElementById("patient_id").value;
+    const doctor_id = document.getElementById("doctor_id").value;
+    const appointment_date = document.getElementById("date").value; // Corrected ID
+    const appointment_time = document.getElementById("time").value; // Corrected ID
+
+    try {
+      // Updated fetch request
+      const response = await fetch("http://localhost:5000/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patient_id,
+          doctor_id,
+          appointment_date,
+          appointment_time,
+        }),
+      });
+
+      // Check if the response is okay
+      if (!response.ok) {
+        const errorText = await response.text(); // Read the response as text
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
+      }
+
+      const result = await response.json();
+
+      // Display success message
+      document.getElementById("feedback").innerText = result.message; // Success
+    } catch (error) {
+      document.getElementById("feedback").innerText = "Error: " + error.message; // Catch network error
+    }
+  };
+</script>

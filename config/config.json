@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "MERviccity2022@@",
+    "database": "telemedicine_db",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "MERviccity2022@@",
+    "database": "telemedicine_db_test",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "MERviccity2022@@",
+    "database": "telemedicine_db",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
